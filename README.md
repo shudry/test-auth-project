@@ -125,5 +125,27 @@ mutation{
 
 ### Аутентификация
 ```graphql
+mutation{
+    login(email: "test@gmail.com", password: "testpassword"){
+        payload
+        refreshExpiresIn
+        token
+    }
+}
+```
 
+```json
+{
+  "data": {
+    "login": {
+      "payload": {
+        "email": "test@gmail.com",
+        "exp": 1634716289,
+        "origIat": 1634715089
+      },
+      "refreshExpiresIn": 1635319889,
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNodW1pbG8uZG15dHJ5QGdtYWlsLmNvbSIsImV4cCI6MTYzNDcxNjI4OSwib3JpZ0lhdCI6MTYzNDcxNTA4OX0.INfxznujYN0T3xAGLnMg6S2Lfmb-fUPqW_HTl38RdKc"
+    }
+  }
+}
 ```

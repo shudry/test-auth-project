@@ -1,3 +1,5 @@
+import graphql_jwt
+
 from graphene import (
         Mutation as GrapheneMutation, Field, String, Boolean
     )
@@ -62,3 +64,4 @@ class Registration(GrapheneMutation):
 
 class AuthMutation:
     registration = Registration.Field()
+    login = graphql_jwt.ObtainJSONWebToken.Field()
