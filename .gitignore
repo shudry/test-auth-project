@@ -1,0 +1,10 @@
+.virtual/
+__pycache__/
+*.pyc
+*.sqlite3
+static/
+*.swp
+.ftpconfig
+.ftpignore
+*.env
+media/
