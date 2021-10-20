@@ -6,4 +6,4 @@ class UserType(DjangoObjectType):
     class Meta:
         model = get_user_model()
         fields = ('first_name', 'last_name', 'email', 'username',
-                  'is_staff', 'is_superuser', 'date_joined', )
+                  'is_staff', 'is_superuser', 'date_joined', 'password',)

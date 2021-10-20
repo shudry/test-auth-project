@@ -24,12 +24,105 @@ python3 manage.py runserver 9401
 
 ### Список пользователей
 ```graphql
-
+query{
+  users{
+    isSuperuser
+    username
+    firstName
+    lastName
+    email
+    isStaff
+    dateJoined
+    password
+  }
+}
 ```
-### Регистрация
+
+```json
+{
+  "data": {
+    "users": [
+      {
+        "isSuperuser": false,
+        "username": "0d62dd93-5a06-4559-9f57-49ede0ae697d",
+        "firstName": "User Name",
+        "lastName": "",
+        "email": "test@gmail.com",
+        "isStaff": false,
+        "dateJoined": "2021-10-20T06:54:16.543951+00:00",
+        "password": "pbkdf2_sha256$260000$FcX5uk8QTGbxIAdSK32V6T$C8bRLp6o8AoRlceWeWi/Cr8lWkoYtVrPvT1jkHaS7sE="
+      },
+      ...
+    ]
+  }
+}
+```
+
+## Регистрация
+
+##### Коды ошибок **`errorCode`**
+* Если почта указанна не корректно, выводится ошибка **`invalid_email`**
+* Пользователь уже существует - **`user-already-exist`**
+* Не валидная длина пароля (от 8 до 24) - **`invalid_password`**
+
+
 ```graphql
-
+// Create new user
+mutation{
+    registration(email: "test@gmail.com", name: "TestName", password: "testpassword"){
+        success
+        errorCode
+        user {
+            isSuperuser
+            username
+            firstName
+            lastName
+            email
+            isStaff
+            dateJoined
+            password
+        }
+    }
+}
 ```
+
+```json
+// Результат выполнения запроса registration (успешный)
+{
+  "data": {
+    "registration": {
+      "user": {
+        "isSuperuser": false,
+        "username": "2f5df6b6-57a4-40be-bee0-abf2ec18fa83",
+        "firstName": "TestName",
+        "lastName": "",
+        "email": "test@gmail.com",
+        "isStaff": false,
+        "dateJoined": "2021-10-20T06:57:08.784855+00:00",
+        "password": "pbkdf2_sha256$260000$FcX5uk8QTGbxIAdSK32V6T$C8bRLp6o8AoRlceWeWi/Cr8lWkoYtVrPvT1jkHaS7sE="
+      },
+      "success": true,
+      "errorCode": null
+    }
+  }
+}
+```
+
+```json
+// Результат выполнения запроса registration (неуспешный)
+{
+  "data": {
+    "registration": {
+      "user": null,
+      "success": false,
+      "errorCode": "user-already-exist"
+    }
+  }
+}
+```
+
+\* Поле `password` добавлено для того, что-бы увидеть в каком виде сохраняется пароль в базе. Для `production` поле удаляется.
+
 ### Аутентификация
 ```graphql
 
